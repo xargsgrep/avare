@@ -296,8 +296,13 @@ authors: zkhan, jlmcgraw
             android:key="@string/ShapeFile"
             android:summary="@string/ShapeFileSummary"
             android:title="@string/ShapeFileLabel" />
-        <PreferenceScreen 
-	        android:title="@string/TabBarTitle" 
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/HideTabBar"
+            android:summary="@string/HideTabBarSummary"
+            android:title="@string/HideTabBarLabel" />
+        <PreferenceScreen
+	        android:title="@string/TabBarTitle"
             android:summary="@string/TabBarSummary"
 	        android:icon="@android:drawable/ic_menu_manage" >
 		        <CheckBoxPreference

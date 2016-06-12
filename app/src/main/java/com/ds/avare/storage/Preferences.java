@@ -1031,6 +1031,10 @@ public class Preferences {
         return mPref.getBoolean(mContext.getString(R.string.prefPlanControl), false);
     }
 
+    public boolean getHideTabBar() {
+        return mPref.getBoolean(mContext.getString(R.string.HideTabBar), false);
+    }
+
     // Get last location known
     public Location getLastLocation() {
         // Default is middle of USA, Kansas City

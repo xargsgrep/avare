@@ -27,3 +27,6 @@ local.properties
 
 # required to GCM
 private_data.xml
+
+.gradle
+build

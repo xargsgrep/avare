@@ -17,7 +17,11 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -37,7 +41,7 @@ import com.ds.avare.utils.Helper;
  *
  */
 @SuppressWarnings("deprecation")
-public class MainActivity extends TabActivity {
+public class MainActivity extends TabActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     TabHost mTabHost;
     float    mTabHeight;
@@ -71,8 +75,8 @@ public class MainActivity extends TabActivity {
         super.onCreate(savedInstanceState);
          
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-                
-        setContentView(R.layout.main);
+
+        setContentView(R.layout.main_nav);
         mScrollView = (HorizontalScrollView)findViewById(R.id.tabscroll);
         ViewTreeObserver vto = mScrollView.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -144,7 +148,13 @@ public class MainActivity extends TabActivity {
         if(0 != (tabItems & (1 << tabTools))) {
         	setupTab(new TextView(this), getString(R.string.Tools), new Intent(this, SatelliteActivity.class), getIntent());
         }
-        
+
+        findViewById(R.id.tabscroll).setVisibility(mPref.getHideTabBar() ? View.GONE : View.VISIBLE);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
+        onNavigationItemSelected(navigationView.getMenu().getItem(0));
     }
     
     /**
@@ -245,4 +255,40 @@ public class MainActivity extends TabActivity {
         switchTab(tabAFD);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_map) {
+            switchTab(tabMain);
+        } else if (id == R.id.nav_plate) {
+            switchTab(tabPlates);
+        } else if (id == R.id.nav_plate) {
+            switchTab(tabPlates);
+        } else if (id == R.id.nav_afd) {
+            switchTab(tabAFD);
+        } else if (id == R.id.nav_find) {
+            switchTab(tabFind);
+        } else if (id == R.id.nav_plan) {
+            switchTab(tabPlan);
+        } else if (id == R.id.nav_near) {
+            switchTab(tabNear);
+        } else if (id == R.id.nav_3d) {
+            switchTab(tabThreeD);
+        } else if (id == R.id.nav_list) {
+            switchTab(tabChecklist);
+        } else if (id == R.id.nav_wxb) {
+            switchTab(tabWXB);
+        } else if (id == R.id.nav_trip) {
+            switchTab(tabTrip);
+        } else if (id == R.id.nav_tools) {
+            switchTab(tabTools);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
 }
